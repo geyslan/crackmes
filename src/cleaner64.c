@@ -96,11 +96,11 @@ int main(int argc, char **argv)
 
   printf("--- Step 2 ---\n");
   printf("[+] Clean elf header...\n");
-  pElf_Header->e_shnum = 0xffffffff;
-  pElf_Header->e_shstrndx = 0xffffffff;
-  pElf_Header->e_shentsize = 0xffffffff;
+  pElf_Header->e_shnum = 0xffff;
+  pElf_Header->e_shstrndx = 0xffff;
+  pElf_Header->e_shentsize = 0xffff;
   pElf_Header->e_version = 0xffffffff;
-  pElf_Header->e_ehsize = 0xffffffff;
+  pElf_Header->e_ehsize = 0xffff;
   pElf_Header->e_shoff = 0xffffffff;
   printf("[+] Clean elf header [DONE]\n");
 
