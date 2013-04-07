@@ -1,18 +1,29 @@
 /*
-**  Copyright (C) 2013 - Jonathan Salwan - http://twitter.com/JonathanSalwan
-** 
-**  This program is free software: you can redistribute it and/or modify
-**  it under the terms of the GNU General Public License as published by
-**  the Free Software Foundation, either version 3 of the License, or
-**  (at your option) any later version.
-** 
-**  This program is distributed in the hope that it will be useful,
-**  but WITHOUT ANY WARRANTY; without even the implied warranty of
-**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**  GNU General Public License for more details.
-**
-**  You should have received a copy of the GNU General Public License
-**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  Crackme Header "Mess Up" - C Language - Linux/x86_64
+  Copyright (C) 2013 - Geyslan G. Bem, Hacking bits
+
+    http://hackingbits.com
+    geyslan@gmail.com 
+
+  It's a fork from
+
+    Jonathan Salwan - http://twitter.com/JonathanSalwan	
+    http://shell-storm.org/blog/Linux-process-execution-and-the-useless-ELF-header-fields/
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 */
 
 #include <elf.h>
@@ -63,33 +74,34 @@ int main(int argc, char **argv)
 
   data = set_header(argv[1]);
 
+  // Here is the secret!
   printf("--- Step 1 ---\n");
   printf("[+] Clean sections...\n");
   nb_section = pElf_Header->e_shnum;
   for (i = 0 ; i < nb_section ; i++){
     printf("[+] Clean section %d\n", i);
-    pElf64_Shdr->sh_name = 0;
-    pElf64_Shdr->sh_type = 0;
-    pElf64_Shdr->sh_flags = 0;
-    pElf64_Shdr->sh_addr = 0;
-    pElf64_Shdr->sh_offset = 0;
-    pElf64_Shdr->sh_size = 0;
-    pElf64_Shdr->sh_link = 0;
-    pElf64_Shdr->sh_info = 0;
-    pElf64_Shdr->sh_addralign = 0;
-    pElf64_Shdr->sh_entsize = 0;
+    pElf64_Shdr->sh_name = 0xffffffff;
+    pElf64_Shdr->sh_type = 0xffffffff;
+    pElf64_Shdr->sh_flags = 0xffffffff;
+    pElf64_Shdr->sh_addr = 0xffffffff;
+    pElf64_Shdr->sh_offset = 0xffffffff;
+    pElf64_Shdr->sh_size = 0xffffffff;
+    pElf64_Shdr->sh_link = 0xffffffff;
+    pElf64_Shdr->sh_info = 0xffffffff;
+    pElf64_Shdr->sh_addralign = 0xffffffff;
+    pElf64_Shdr->sh_entsize = 0xffffffff;
     pElf64_Shdr++;
   }
   printf("[+] Clean section [DONE]\n");
 
   printf("--- Step 2 ---\n");
   printf("[+] Clean elf header...\n");
-  pElf_Header->e_shnum = 0;
-  pElf_Header->e_shstrndx = 0;
-  pElf_Header->e_shentsize = 0;
-  pElf_Header->e_version = 0;
-  pElf_Header->e_ehsize = 0;
-  pElf_Header->e_shoff = 0;
+  pElf_Header->e_shnum = 0xffffffff;
+  pElf_Header->e_shstrndx = 0xffffffff;
+  pElf_Header->e_shentsize = 0xffffffff;
+  pElf_Header->e_version = 0xffffffff;
+  pElf_Header->e_ehsize = 0xffffffff;
+  pElf_Header->e_shoff = 0xffffffff;
   printf("[+] Clean elf header [DONE]\n");
 
   printf("--- Step 3 ---\n");
